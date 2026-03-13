@@ -1,6 +1,7 @@
 package com.atividade.cadastro.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -29,4 +30,8 @@ public class StudentService {
     public Optional<Student> findById(Long id) {
         return studentRepository.findByid(id);
     }
+
+    public List<Student> listAllStudents() {
+        return studentRepository.findAll();
+    } 
 }

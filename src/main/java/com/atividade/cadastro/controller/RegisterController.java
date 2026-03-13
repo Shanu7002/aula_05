@@ -65,11 +65,7 @@ public class RegisterController {
         } else {
             redirectAttributes.addFlashAttribute("mensagem", "Student edited with sucess!");
         }
-        System.out.println("Savo com sucesso");
-        System.out.println(student.getName());
-        System.out.println(student.getClassRoom());
-        System.out.println(student.getBirthday());
-        return "redirect:/home";
+        return "redirect:/students";
     }
 
     @PostMapping("/delete/{id}")

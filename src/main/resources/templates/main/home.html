@@ -1,7 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{tarefas/fragments/head :: head('Cadastro - home')}"></head>
+<head th:replace="~{main/fragments/head :: head('Gerenciador de Tarefas')}"></head>
 <body>
-    
+    <h1>Students</h1>
+
+    <a th:href="@{/register/new}" class="btn btn-primary">New Student</a>
+
+    <div class="alert alert-sucess" th:if="${mensagem}">
+        <span th:text="${mensagemErro}"></span>
+    </div>
+
+    <div th:if="${#lists.isEmpty(students)}" class="empty-message">
+        <p>No Students registered.</p>
+    </div>
+
+    <table th:if="${!#lists.isEmpty(students)}" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>ClassRoom</th>
+                <th>Birthday</th>
+                <th>Creation date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.classRoom}"></td>
+                <td th:text="${student.birthday}"></td>
+                <td th:text="${student.creationDate}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
