@@ -40,8 +40,16 @@ public class RegisterController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editStudent(@PathVariable Long id) {
-        return "";
+    public String editStudent(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
+        return studentService.findById(id)
+            .map(student -> {
+                model.addAttribute("student", student);
+                return "main/register";
+            })
+            .orElseGet(() -> {
+                redirectAttributes.addFlashAttribute("mensagemErro", "Student not found.");
+                return "redirect:/students";
+            });
     }
 
     @PostMapping("/save")
@@ -58,7 +66,7 @@ public class RegisterController {
             });
         }
 
-        studentService.saveStudent(student.getName(), student.getClassRoom() ,student.getBirthday());
+        studentService.saveStudent(student);
 
         if (isNew) {
             redirectAttributes.addFlashAttribute("mensagem", "Student created with sucess!");
