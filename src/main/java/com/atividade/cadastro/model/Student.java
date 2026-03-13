@@ -1,7 +1,6 @@
 package com.atividade.cadastro.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,14 +16,14 @@ public class Student {
     @NotNull(message = "Student must have a classroom.")
     private StudentClassEnum classRoom;
 
-    @NotBlank(message = "Student must have a birthday.")
-    private Date birthday;
+    @NotNull(message = "Student must have a birthday.")
+    private LocalDate birthday;
 
-    private final LocalDate creationDate = LocalDate.now();
+    private LocalDate creationDate = LocalDate.now();
 
     public Student() { }
 
-    public Student(String name, StudentClassEnum classRoom, Date birthday) {
+    public Student(String name, StudentClassEnum classRoom, LocalDate birthday) {
         this.name = name;
         this.classRoom = classRoom;
         this.birthday = birthday;
@@ -57,16 +56,21 @@ public class Student {
         return this;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public Student setBirthday(Date birthday) {
+    public Student setBirthday(LocalDate birthday) {
         this.birthday = birthday;
         return this;
     }
     
     public LocalDate getCreationDate() {
         return creationDate;
+    }
+
+    public Student setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+        return this;
     }
 }
