@@ -38,4 +38,9 @@ public class StudentRepository {
     public List<Student> findAll() {
         return new ArrayList<>(students.values());
     }
+    
+    public String deleteStudent(Student student) {
+        students.remove(student.getId());
+        return student.getName();
+    }
 }

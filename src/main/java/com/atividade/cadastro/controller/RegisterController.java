@@ -69,8 +69,10 @@ public class RegisterController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable Long id) {
-        return "";
+    public String deleteStudent(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        String name = studentService.deleteStudent(id);
+        redirectAttributes.addFlashAttribute("mensagens", "Student " + name + " deleted with sucess.");
+        return "redirect:/students";
     }
 
 }

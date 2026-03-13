@@ -33,5 +33,15 @@ public class StudentService {
 
     public List<Student> listAllStudents() {
         return studentRepository.findAll();
-    } 
+    }
+
+    public String deleteStudent(Long id) {
+        Optional<Student> optionalStudent = studentRepository.findByid(id);
+        if (optionalStudent.isEmpty()) {
+            throw new Error("Student not found.");
+        }
+        Student student = optionalStudent.get();
+        String name = studentRepository.deleteStudent(student);
+        return name;
+    }
 }
