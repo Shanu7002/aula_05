@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{main/fragments/head :: head('Gerenciador de Tarefas')}"></head>
+<body>
+    <div class="container">
+        <h1 th:text="${student != null and student.id != null ? 'Edit student' : 'New student'}">Forms</h1>
+        
+        <form th:action="@{/register/save}" th:object="${student}" method="post" class="form">
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{creationDate}">
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Write the student name">
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span>
+            </div>
+
+            <div class="form-group">
+                <label for="classRoom">Class Room</label>
+                <select id="classRoom" th:field="*{classRoom}" class="form-control">
+                    <option th:each="c : ${T(com.atividade.cadastro.model.StudentClassEnum).values()}"
+                            th:value="${c}"
+                            th:text="${c}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="birthday">Birthday</label>
+                <input type="date" id="birthday" th:field="*{birthday}" class="form-control" 
+                       th:max="${#dates.format(maxBirthday, 'yyyy-MM-dd')}" />
+                <span class="error" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">Birthday error</span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a th:href="@{/}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

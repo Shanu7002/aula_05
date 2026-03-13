@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class Student {
@@ -13,13 +14,21 @@ public class Student {
     @Size(min = 3, max = 100, message = "Student name must have between 3 and 100 characteres.")
     private String name;
 
-    @NotBlank(message = "Student must have a classroom.")
+    @NotNull(message = "Student must have a classroom.")
     private StudentClassEnum classRoom;
 
     @NotBlank(message = "Student must have a birthday.")
     private Date birthday;
 
-    private LocalDate creationDate = LocalDate.now();
+    private final LocalDate creationDate = LocalDate.now();
+
+    public Student() { }
+
+    public Student(String name, StudentClassEnum classRoom, Date birthday) {
+        this.name = name;
+        this.classRoom = classRoom;
+        this.birthday = birthday;
+    }
 
     public Long getId() {
         return id;
@@ -39,7 +48,7 @@ public class Student {
         return this;
     }
 
-    public StudentClassEnum getClassRomm() {
+    public StudentClassEnum getClassRoom() {
         return classRoom;
     }
 
